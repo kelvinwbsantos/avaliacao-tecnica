@@ -18,7 +18,7 @@ services:
   backend:
     container_name: nestjs_backend
     build:
-      context: ./back-nest-avaliacao-tecnica-1
+      context: ./../back-nest-avaliacao-tecnica-1
       # O Docker Compose usará o Dockerfile apropriado baseado no comando
       # Para dev, podemos especificar aqui ou usar perfis
       dockerfile: Dockerfile.dev
@@ -26,7 +26,7 @@ services:
       - "3000:3000"
     volumes:
       # Sincroniza o código-fonte para o hot-reload
-      - ./back-nest-avaliacao-tecnica-1:/app
+      - ./../back-nest-avaliacao-tecnica-1:/app
       # Evita que a pasta node_modules local sobrescreva a do contêiner
       - /app/node_modules
     environment:
@@ -48,12 +48,12 @@ services:
   frontend:
     container_name: angular_frontend
     build:
-      context: ./front-angular-avaliacao-tecnica-1
+      context: ./../front-angular-avaliacao-tecnica-1
       dockerfile: Dockerfile.dev
     ports:
       - "4200:4200"
     volumes:
-      - ./front-angular-avaliacao-tecnica-1:/app
+      - ./../front-angular-avaliacao-tecnica-1:/app
       - /app/node_modules
     restart: unless-stopped
 
