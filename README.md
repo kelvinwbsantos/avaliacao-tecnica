@@ -73,7 +73,7 @@ Antes de começar, garanta que você tenha as seguintes ferramentas instaladas:
 Após a execução, o ambiente estará disponível nos seguintes endereços:
 
 * **Frontend (Angular):** http://localhost:4200
-* **Backend (NestJS):** http://localhost:3000](http://localhost:3000
+* **Backend (NestJS):** http://localhost:3000
 * **Documentação da API (Swagger):** http://localhost:3000/api
 
 ### Comandos Úteis do Docker
