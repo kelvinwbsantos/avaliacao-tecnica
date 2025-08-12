@@ -86,14 +86,14 @@ Após a execução, o ambiente estará disponível nos seguintes endereços:
 
 ### Comandos Úteis do Docker
 
-* **Ver os logs de um serviço específico (ex: backend):**
-    `docker-compose logs -f backend`
 * **Parar todos os serviços:**
     `docker-compose down`
 * **Parar e remover os volumes (apaga o banco de dados):**
     `docker-compose down -v`
 * **Acessar o terminal de um contêiner (ex: backend):**
-    `docker-compose exec backend /bin/sh`
+    `docker exec nestjs_backend /bin/sh`
+* **Ver os logs de um serviço específico (ex: backend):**
+    `docker logs -f nestjs_backend`
 
 ### Estrutura de Pastas Esperada
 
