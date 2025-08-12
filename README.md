@@ -23,13 +23,13 @@ Antes de começar, garanta que você tenha as seguintes ferramentas instaladas:
     cd workspace
 
     # 1. Clone este repositório de orquestração
-    git clone [https://github.com/kelvinwbsantos/avaliacao-tecnica.git](https://github.com/kelvinwbsantos/avaliacao-tecnica.git)
+    git clone https://github.com/kelvinwbsantos/avaliacao-tecnica.git
 
     # 2. Clone o repositório do backend
-    git clone [https://github.com/kelvinwbsantos/back-nest-avaliacao-tecnica-1.git](https://github.com/kelvinwbsantos/back-nest-avaliacao-tecnica-1.git)
+    git clone https://github.com/kelvinwbsantos/back-nest-avaliacao-tecnica-1.git
 
     # 3. Clone o repositório do frontend
-    git clone [https://github.com/kelvinwbsantos/front-angular-avaliacao-tecnica-1.git](https://github.com/kelvinwbsantos/front-angular-avaliacao-tecnica-1.git)
+    git clone https://github.com/kelvinwbsantos/front-angular-avaliacao-tecnica-1.git
     ```
 
 2.  **Navegue para a pasta do orquestrador:**
@@ -44,7 +44,7 @@ Antes de começar, garanta que você tenha as seguintes ferramentas instaladas:
 
     ```bash
     # Comando para criar o .env (opcional, se tiver o .env.example)
-    # cp .env.example .env
+    # cp env.example .env
 
     # Abra o arquivo .env e preencha com suas configurações.
     # Exemplo de conteúdo para o .env:
@@ -72,9 +72,9 @@ Antes de começar, garanta que você tenha as seguintes ferramentas instaladas:
 
 Após a execução, o ambiente estará disponível nos seguintes endereços:
 
-* **Frontend (Angular):** [http://localhost:4200](http://localhost:4200)
-* **Backend (NestJS):** [http://localhost:3000](http://localhost:3000)
-* **Documentação da API (Swagger):** [http://localhost:3000/api](http://localhost:3000/api)
+* **Frontend (Angular):** http://localhost:4200
+* **Backend (NestJS):** http://localhost:3000](http://localhost:3000
+* **Documentação da API (Swagger):** http://localhost:3000/api
 
 ### Comandos Úteis do Docker
 
