@@ -67,6 +67,14 @@ Antes de começar, garanta que você tenha as seguintes ferramentas instaladas:
     ```bash
     docker-compose up --build -d
     ```
+    
+4.  **Rode a seed inicial:**
+
+    Execute o seguinte comando para inserir as roles iniciais e usuario Admin.
+
+    ```bash
+    docker exec nestjs_backend npm run seed
+    ```
 
 ### Verificação
 
