@@ -30,6 +30,7 @@ services:
       # Evita que a pasta node_modules local sobrescreva a do contêiner
       - /app/node_modules
     environment:
+      CHOKIDAR_USEPOLLING: true // hot-reload 
       DB_TYPE: postgres
       DB_HOST: db
       DB_PORT: 5432
