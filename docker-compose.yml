@@ -3,62 +3,82 @@ services:
   db:
     image: postgres:16-alpine
     container_name: postgres_db
-    environment:
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: mydb
-    ports:
-      # Expõe a porta do Postgres para que você possa se conectar com um cliente de BD (DBeaver, etc)
-      - "5432:5432"
-    volumes:
-      # Garante que os dados do banco persistam mesmo se o contêiner for removido
-      - pgdata:/var/lib/postgresql/data
     restart: unless-stopped
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # --- BACKEND NESTJS ---
   backend:
-    container_name: nestjs_backend
     build:
       context: ./../back-nest-avaliacao-tecnica-1
-      # O Docker Compose usará o Dockerfile apropriado baseado no comando
-      # Para dev, podemos especificar aqui ou usar perfis
       dockerfile: Dockerfile.dev
-    ports:
-      - "3000:3000"
-    volumes:
-      # Sincroniza o código-fonte para o hot-reload
-      - ./../back-nest-avaliacao-tecnica-1:/app
-      # Evita que a pasta node_modules local sobrescreva a do contêiner
-      - /app/node_modules
+    container_name: nestjs_backend
+    restart: unless-stopped
+    env_file:
+      - ./.env
     environment:
-      CHOKIDAR_USEPOLLING: true // hot-reload 
-      DB_TYPE: postgres
+      DB_TYPE: ${DB_TYPE}
       DB_HOST: db
       DB_PORT: 5432
       DB_USERNAME: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
       DB_DATABASE: ${POSTGRES_DB}
-
+      PORT: ${BACKEND_PORT}
+      NODE_ENV: ${NODE_ENV}
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+    ports:
+      - "${BACKEND_PORT}:3000"
+    volumes:
+      - ./../back-nest-avaliacao-tecnica-1:/app
+      - /app/node_modules
     depends_on:
-      # Garante que o contêiner do banco de dados inicie antes do backend
-      - db
-    restart: unless-stopped
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
 
   # --- FRONTEND ANGULAR ---
   frontend:
-    container_name: angular_frontend
     build:
       context: ./../front-angular-avaliacao-tecnica-1
       dockerfile: Dockerfile.dev
+    container_name: angular_frontend
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    environment:
+      API_URL: http://localhost:${BACKEND_PORT}
     ports:
-      - "4200:4200"
+      - "${FRONTEND_PORT}:4200"
     volumes:
       - ./../front-angular-avaliacao-tecnica-1:/app
       - /app/node_modules
-    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - app-network
 
 # --- GERENCIAMENTO DE VOLUMES ---
 volumes:
-  # Define um volume nomeado para o PostgreSQL para persistência de dados
   pgdata:
+
+networks:
+  app-network:
+    driver: bridge
