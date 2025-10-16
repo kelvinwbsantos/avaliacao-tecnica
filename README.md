@@ -50,14 +50,37 @@ Antes de começar, garanta que você tenha as seguintes ferramentas instaladas:
     # Exemplo de conteúdo para o .env:
     ```
     ```env
-    # Configurações do Banco de Dados PostgreSQL
-    POSTGRES_DB=mydb
-    POSTGRES_USER=postgres
-    POSTGRES_PASSWORD=root
+# Database Configuration
+DB_TYPE=postgres
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=your_database_username
+DB_PASSWORD=your_database_password
+DB_DATABASE=your_database_name
 
-    # Segredos da Aplicação
-    JWT_SECRET=chavesupersecreta
-    JWT_EXPIRES_IN=1d
+# PostgreSQL (para o container)
+POSTGRES_DB=your_database_name
+POSTGRES_USER=your_database_username
+POSTGRES_PASSWORD=your_database_password
+POSTGRES_PORT=5432
+
+# Backend Configuration
+BACKEND_PORT=3000
+NODE_ENV=development  # ou production
+
+# Frontend Configuration
+FRONTEND_PORT=4200
+
+# JWT Configuration
+JWT_SECRET=your_jwt_secret_key
+JWT_EXPIRES_IN=3600  # Tempo de expiração em segundos
+
+# API Configuration
+API_URL=http://localhost:3000
+
+# Gemini API Key
+GEMINI_API_KEY=your_gemini_api_key
+
     ```
 
 4.  **Suba os contêineres:**
